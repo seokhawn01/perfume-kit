@@ -9,9 +9,8 @@ interface NavItem {
   href: string
 }
 
-const navItems: NavItem[] = [
-  { title: '홈', href: '/' },
-]
+// 인증 없이 접근 가능한 네비게이션 항목
+const navItems: NavItem[] = [{ title: '향수 탐색', href: '/explore' }]
 
 export function MainNav() {
   const pathname = usePathname()

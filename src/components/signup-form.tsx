@@ -1,6 +1,9 @@
 'use client'
 
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -10,57 +13,124 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { signupSchema, type SignupFormValues } from '@/lib/schemas/auth'
 
 export function SignupForm() {
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      nickname: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  })
+
+  // 회원가입 처리 (Supabase Auth 연동 예정)
+  const onSubmit = async (_values: SignupFormValues) => {
+    // TODO: Supabase signUp 연동 후 /onboarding으로 리다이렉트
+  }
+
   return (
     <Card>
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">회원가입</CardTitle>
-        <CardDescription>새 계정을 만들어 서비스를 시작하세요</CardDescription>
+        <CardDescription>
+          새 계정을 만들고 나만의 향수 취향을 찾아보세요
+        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="name">이름</Label>
-          <Input id="name" type="text" placeholder="홍길동" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">이메일</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="email@example.com"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">비밀번호</Label>
-          <Input id="password" type="password" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="confirmPassword">비밀번호 확인</Label>
-          <Input id="confirmPassword" type="password" required />
-        </div>
-        <div className="flex items-start space-x-2">
-          <Checkbox id="terms" />
-          <div className="grid gap-1.5 leading-none">
-            <label
-              htmlFor="terms"
-              className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="nickname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>닉네임</FormLabel>
+                  <FormControl>
+                    <Input placeholder="향수러버" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>이메일</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="email@example.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>비밀번호</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="8자 이상 입력하세요"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>비밀번호 확인</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="비밀번호를 다시 입력하세요"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
             >
-              이용약관에 동의합니다
-            </label>
-            <p className="text-muted-foreground text-xs">
-              서비스 이용약관 및 개인정보 처리방침에 동의합니다.
-            </p>
-          </div>
-        </div>
+              {form.formState.isSubmitting ? '가입 중...' : '회원가입'}
+            </Button>
+          </form>
+        </Form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <Button className="w-full">회원가입</Button>
-        <div className="text-center text-sm">
+      <CardFooter>
+        <div className="w-full text-center text-sm">
           이미 계정이 있으신가요?{' '}
           <Link href="/login" className="text-primary hover:underline">
             로그인

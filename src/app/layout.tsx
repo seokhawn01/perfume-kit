@@ -15,9 +15,12 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'NextJS Starter - 모던 웹 스타터킷',
+  title: {
+    default: 'Perfume Kit - 나만의 향수 추천',
+    template: '%s | Perfume Kit',
+  },
   description:
-    'Next.js 15, TypeScript, TailwindCSS, ShadcnUI로 구축된 프로덕션 준비가 완료된 웹 애플리케이션 스타터킷',
+    '착향 경험(지속력/확산력) 기반 TPO 상황 맞춤 향수 개인화 추천 서비스',
 }
 
 export default function RootLayout({

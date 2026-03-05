@@ -6,72 +6,32 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Zap,
-  Shield,
-  Palette,
-  Code,
-  Smartphone,
-  Globe,
-  Settings,
-  Users,
-  Database,
-} from 'lucide-react'
+import { Sparkles, BookOpen, Search, Heart } from 'lucide-react'
 
 const features = [
   {
-    icon: Zap,
-    title: '빠른 성능',
+    icon: Sparkles,
+    title: 'TPO 맞춤 추천',
     description:
-      'Next.js 15의 최적화된 빌드로 빠른 로딩 속도와 뛰어난 사용자 경험을 제공합니다.',
+      '오피스, 데이트, 캐주얼 등 오늘의 상황을 선택하면 딱 맞는 향수를 추천해드립니다. 내 착향 데이터가 쌓일수록 추천이 더 정확해집니다.',
   },
   {
-    icon: Shield,
-    title: '타입 안정성',
+    icon: BookOpen,
+    title: '착향 일지 기록',
     description:
-      'TypeScript로 런타임 에러를 방지하고 개발 생산성을 크게 향상시킵니다.',
+      '향수를 뿌린 후 지속력과 확산력을 기록하세요. 날씨, 온도, 상황 데이터가 쌓여 나만의 향수 취향 프로필이 만들어집니다.',
   },
   {
-    icon: Palette,
-    title: '아름다운 디자인',
+    icon: Search,
+    title: '향수 탐색',
     description:
-      'ShadcnUI와 TailwindCSS로 구성된 모던하고 일관된 디자인 시스템을 제공합니다.',
+      '브랜드, 향 계열, 가격대로 74,000개 이상의 향수를 검색하고 탐색하세요. 탑/미들/베이스 노트 정보와 계절 어울림도 확인할 수 있습니다.',
   },
   {
-    icon: Code,
-    title: '개발자 경험',
+    icon: Heart,
+    title: '취향 온보딩',
     description:
-      '최고의 DX를 위한 ESLint, Prettier, Husky 등 개발 도구가 미리 설정되어 있습니다.',
-  },
-  {
-    icon: Smartphone,
-    title: '반응형 디자인',
-    description:
-      'usehooks-ts를 활용한 완벽한 반응형 디자인으로 모든 디바이스에서 최적화됩니다.',
-  },
-  {
-    icon: Globe,
-    title: 'SEO 최적화',
-    description:
-      '검색 엔진 최적화와 메타데이터 관리가 기본으로 설정되어 있습니다.',
-  },
-  {
-    icon: Settings,
-    title: '확장 가능',
-    description:
-      '모듈화된 구조로 새로운 기능을 쉽게 추가하고 커스터마이징할 수 있습니다.',
-  },
-  {
-    icon: Users,
-    title: '프로덕션 준비',
-    description:
-      '실제 서비스 운영에 필요한 모든 설정과 보안 기능이 포함되어 있습니다.',
-  },
-  {
-    icon: Database,
-    title: '상태 관리',
-    description:
-      '검증된 라이브러리들을 활용한 효율적인 상태 관리 솔루션을 제공합니다.',
+      '처음 시작하는 분도 걱정 없어요. 향수 카드 스와이프 또는 이미지 선택으로 내 취향을 빠르게 파악하고 첫 추천을 받을 수 있습니다.',
   },
 ]
 
@@ -80,14 +40,14 @@ export function FeaturesSection() {
     <section className="bg-muted/50 py-20">
       <Container>
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold">주요 기능</h2>
+          <h2 className="mb-4 text-3xl font-bold">핵심 기능</h2>
           <p className="text-muted-foreground mx-auto max-w-2xl">
-            프로덕션 준비가 완료된 강력한 기능들로 빠르고 안정적인 웹
-            애플리케이션을 구축하세요.
+            내 착향 경험에서 출발하는 향수 추천 서비스. 타인의 리뷰가 아닌 나의
+            데이터로 더 정확한 추천을 받으세요.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {features.map(feature => (
             <Card
               key={feature.title}

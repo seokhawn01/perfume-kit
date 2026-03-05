@@ -7,7 +7,7 @@ export function Footer() {
         <div className="py-8">
           <div className="text-center">
             <p className="text-muted-foreground text-sm">
-              © 2024 NextJS Starter. 모든 권리 보유.
+              &copy; 2026 Perfume Kit. 나만의 향수 이야기를 기록하세요.
             </p>
           </div>
         </div>
