@@ -5,7 +5,12 @@ import { useMediaQuery } from 'usehooks-ts'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { MainNav } from '@/components/navigation/main-nav'
 import { MobileNav } from '@/components/navigation/mobile-nav'
 import { Container } from './container'
@@ -55,6 +60,8 @@ export function Header() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                  {/* 스크린 리더 접근성을 위한 제목 (시각적으로 숨김) */}
+                  <SheetTitle className="sr-only">모바일 메뉴</SheetTitle>
                   <MobileNav onClose={() => setMobileMenuOpen(false)} />
                 </SheetContent>
               </Sheet>

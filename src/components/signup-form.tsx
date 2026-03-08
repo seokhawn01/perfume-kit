@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 
@@ -36,7 +36,7 @@ export function SignupForm() {
   })
 
   // 회원가입 처리 (Supabase Auth 연동 예정)
-  const onSubmit = async (_values: SignupFormValues) => {
+  const onSubmit: SubmitHandler<SignupFormValues> = async () => {
     // TODO: Supabase signUp 연동 후 /onboarding으로 리다이렉트
   }
 

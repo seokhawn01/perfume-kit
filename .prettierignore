@@ -39,3 +39,7 @@ Thumbs.db
 
 # Generated files
 next-env.d.ts
+
+# 서브모듈 및 외부 도구 (포맷팅 제외)
+mcp-shrimp-task-manager/
+shrimp_data/

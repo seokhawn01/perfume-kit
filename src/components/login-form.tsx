@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
@@ -37,7 +37,7 @@ export function LoginForm() {
   })
 
   // 로그인 처리 (Supabase Auth 연동 예정)
-  const onSubmit = async (_values: LoginFormValues) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async () => {
     // TODO: Supabase signInWithPassword 연동 후 홈으로 리다이렉트
   }
 

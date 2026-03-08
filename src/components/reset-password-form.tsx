@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
@@ -35,7 +35,7 @@ export function ResetPasswordForm() {
   })
 
   // 비밀번호 재설정 처리 (Supabase Auth 연동 예정)
-  const onSubmit = async (_values: ResetPasswordFormValues) => {
+  const onSubmit: SubmitHandler<ResetPasswordFormValues> = async () => {
     // TODO: Supabase updateUser 연동 후 /login으로 리다이렉트
   }
 
