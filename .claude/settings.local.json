@@ -23,30 +23,6 @@
     "playwright",
     "context7"
   ],
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/notification-hook.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-hook.sh"
-          }
-        ]
-      }
-    ]
-  },
   "outputStyle": "Intermediate Developer",
   "env": {
     "ENABLE_TOOL_SEARCH": "true"
