@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
   },
+  // 빌드 트레이싱에서 스크립트 디렉토리 제외 (배포 불필요)
+  outputFileTracingExcludes: {
+    '*': ['./scripts/**/*'],
+  },
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
