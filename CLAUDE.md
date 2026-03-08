@@ -35,60 +35,67 @@ npx shadcn@latest add [component]  # shadcn/ui 컴포넌트 추가
 
 ```
 src/
-├── app/                  # Next.js App Router 페이지
-│   ├── layout.tsx        # 루트 레이아웃 (ThemeProvider, Toaster 포함)
-│   ├── page.tsx          # 홈 (/)
-│   ├── login/page.tsx    # 로그인
-│   └── signup/page.tsx   # 회원가입
+├── app/
+│   ├── layout.tsx            # 루트 레이아웃 (ThemeProvider, Toaster 포함)
+│   ├── page.tsx              # 홈 (/)
+│   ├── (auth)/               # 인증 그룹 라우트 (Header/Footer 없는 중앙 정렬 레이아웃)
+│   │   ├── layout.tsx
+│   │   ├── login/page.tsx
+│   │   ├── signup/page.tsx
+│   │   ├── forgot-password/page.tsx
+│   │   └── reset-password/page.tsx
+│   ├── onboarding/page.tsx
+│   ├── recommend/page.tsx
+│   ├── explore/page.tsx
+│   ├── perfumes/[id]/page.tsx
+│   ├── wear-log/page.tsx
+│   ├── wear-log/new/page.tsx
+│   └── mypage/page.tsx
 ├── components/
-│   ├── ui/               # shadcn/ui 기반 기본 컴포넌트 (수정 금지)
-│   ├── layout/           # Header, Footer, Container
-│   ├── navigation/       # MainNav, MobileNav
-│   ├── sections/         # 페이지 섹션 (Hero, Features, CTA)
-│   └── providers/        # ThemeProvider 등 Context 프로바이더
+│   ├── ui/                   # shadcn/ui 기반 기본 컴포넌트 (수정 금지)
+│   ├── layout/               # Header, Footer, Container
+│   ├── navigation/           # MainNav, MobileNav
+│   ├── sections/             # 페이지 섹션 (Hero, Features, CTA)
+│   ├── providers/            # ThemeProvider 등 Context 프로바이더
+│   ├── login-form.tsx        # 인증 폼 컴포넌트들은 components/ 루트에 위치
+│   ├── signup-form.tsx
+│   ├── forgot-password-form.tsx
+│   └── reset-password-form.tsx
 └── lib/
-    ├── utils.ts           # cn() 등 공통 유틸리티
-    └── env.ts             # Zod 기반 환경변수 검증
+    ├── env.ts                # Zod 기반 환경변수 검증
+    ├── utils.ts              # cn() 등 공통 유틸리티
+    ├── schemas/              # Zod 폼 스키마 (auth.ts, wear-log.ts)
+    ├── types/                # TypeScript 타입 정의 (index.ts barrel export)
+    └── supabase/             # Supabase 클라이언트 (연동 예정)
+        ├── client.ts         # 브라우저 클라이언트
+        └── server.ts         # 서버 컴포넌트 / Server Action용
 ```
 
 ### 핵심 패턴
 
-**환경변수 접근**: 환경변수는 반드시 `src/lib/env.ts`의 `env` 객체를 통해 접근합니다. `process.env`를 직접 사용하지 않습니다. 새 환경변수 추가 시 Zod 스키마에 먼저 등록합니다.
+**환경변수 접근**: 반드시 `src/lib/env.ts`의 `env` 객체를 통해 접근합니다. `process.env` 직접 사용 금지. 새 환경변수 추가 시 Zod 스키마에 먼저 등록합니다.
 
-**경로 별칭**: 상대 경로 대신 항상 경로 별칭을 사용합니다.
-
-- `@/components`, `@/lib`, `@/hooks`, `@/ui`
+**경로 별칭**: 상대 경로 대신 항상 `@/components`, `@/lib`, `@/hooks` 형태의 경로 별칭을 사용합니다.
 
 **컴포넌트 export 규칙**:
 
 - 페이지 컴포넌트 (`app/**/page.tsx`) → `export default`
-- 나머지 컴포넌트 → `export function` (named export)
+- 나머지 모든 컴포넌트 → `export function` (named export)
 
-**shadcn/ui 컴포넌트**: `src/components/ui/`에 위치하며 직접 수정하지 않습니다. 커스터마이징이 필요하면 래핑 컴포넌트를 만듭니다.
+**shadcn/ui 컴포넌트**: `src/components/ui/`를 직접 수정하지 않습니다. 커스터마이징이 필요하면 래핑 컴포넌트를 만듭니다.
 
-**폼 패턴**: React Hook Form + Zod 스키마 + Server Actions 조합. 폼 스키마는 `src/lib/schemas/`에 분리 정의합니다.
+**폼 패턴**: `'use client'` + React Hook Form + zodResolver + shadcn/ui Form 컴포넌트 조합. 스키마는 `src/lib/schemas/`에 분리 정의하고 `FormValues` 타입을 함께 export합니다.
 
-### 계획된 확장 구조 (개발 예정)
+**타입 관리**: `src/lib/types/`에 파일별 인터페이스 정의 후, 반드시 `src/lib/types/index.ts`에 barrel export를 추가합니다.
 
-```
-src/
-├── app/
-│   ├── (auth)/           # 인증 그룹 라우트
-│   ├── onboarding/       # 콜드스타트 온보딩
-│   ├── recommend/        # TPO 추천
-│   ├── explore/          # 향수 탐색
-│   ├── perfumes/[id]/    # 향수 상세
-│   ├── wear-log/         # 착향 일지 목록/작성
-│   └── mypage/           # 마이페이지
-├── lib/
-│   ├── supabase/         # Supabase 클라이언트 설정
-│   ├── schemas/          # Zod 스키마
-│   └── types/            # TypeScript 타입 정의
-└── scripts/
-    └── seed-perfumes.ts  # Fragella API → Supabase 데이터 수집
-```
+**Server Actions**: 폼 제출 로직은 Server Action으로 구현합니다. Supabase 서버 클라이언트는 `src/lib/supabase/server.ts`를 사용합니다.
 
-## 개발 가이드 문서
+## 개발 현황 및 가이드 문서
+
+- **Phase 0 완료**: 라우트 구조, 타입/스키마, 레이아웃, 홈페이지, 인증 폼 UI
+- **Phase 1 진행 예정**: Supabase 연동 및 인증 시스템 (`docs/ROADMAP.md` Task 007~011 참조)
+
+참고 문서:
 
 - `docs/PRD.md` — 기능 명세, 데이터 모델, 추천 알고리즘
 - `docs/guides/styling-guide.md` — TailwindCSS v4 스타일링 규칙
