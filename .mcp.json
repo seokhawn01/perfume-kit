@@ -26,17 +26,14 @@
       "args": ["/c", "npx", "shadcn@latest", "mcp"]
     },
     "shrimp-task-manager": {
-      "type": "stdio",
-      "command": "cmd",
+      "command": "node",
       "args": [
-        "/c",
-        "node",
-        "C:\\Users\\sh088\\workspace\\courses\\perfume-kit\\mcp-shrimp-task-manager\\dist\\index.js"
+        "/c/Users/sh088/workspace/courses/perfume-kit/mcp-shrimp-task-manager/dist/index.js"
       ],
       "env": {
-        "DATA_DIR": "C:\\Users\\sh088\\workspace\\courses\\perfume-kit\\shrimp_data",
+        "DATA_DIR": "/c/Users/sh088/workspace/courses/perfume-kit/shrimp_data",
         "TEMPLATES_USE": "en",
-        "ENABLE_GUI": "false"
+        "ENABLE_GUI": "true"
       }
     }
   }
